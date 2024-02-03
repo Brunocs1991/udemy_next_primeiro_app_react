@@ -1,52 +1,29 @@
 import {useState} from "react";
 
 const App = () => {
-    const [name, setName]  =useState('');
-    const [email, setEmail]  =useState('');
-    const [age, setAge]  =useState('');
+    const [task, setTask] = useState('')
+    const [tasks, setTasks] = useState([]);
 
-    const [user, setUser] = useState({})
-    const handlerRegister = (e) =>{
+    const handlerRegister = (e) => {
         e.preventDefault()
-        setUser({name, email, age})
+        setTasks([...tasks, task])
+        setTask('')
+
     }
     return (
 
         <div>
-            <h1>Cadrastrando usuário</h1>
+            <h1>Cadrastrando tarefas</h1>
             <form onSubmit={handlerRegister}>
                 <div>
-                    <label htmlFor="name">Nome:</label> <br/>
+                    <label htmlFor="name">Nome da terefa:</label> <br/>
                     <input
                         type="text"
                         name="name"
                         id="name"
-                        placeholder="Digite o seu nome"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                    />
-                </div>
-
-                <div>
-                    <label htmlFor="email">E-mail:</label> <br/>
-                    <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        placeholder="Digite o seu email"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="age">Idade:</label> <br/>
-                    <input
-                        type="number"
-                        name="age"
-                        id="age"
-                        placeholder="Digite sua idade"
-                        value={age}
-                        onChange={e => setAge(e.target.value)}
+                        placeholder="Digite uma tarefa"
+                        value={task}
+                        onChange={e => setTask(e.target.value)}
                     />
                 </div>
                 <br/>
@@ -54,13 +31,11 @@ const App = () => {
             </form>
             <br/>
             <br/>
-            <div>
-                <span>Bem vindo: {user.name}</span>
-                <br/>
-                <span>Idade: {user.age}</span>
-                <br/>
-                <span>e-mail: {user.email}</span>
-            </div>
+            <ul>
+                {tasks.map((task, index) => (
+                    <li key={task.concat(index)}>{task}</li>
+                ))}
+            </ul>
 
         </div>
     )
