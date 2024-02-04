@@ -1,8 +1,19 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const App = () => {
     const [task, setTask] = useState('')
     const [tasks, setTasks] = useState([]);
+
+    useEffect(() => {
+        const localStorageTasks = localStorage.getItem("@taks")
+        if (localStorageTasks) {
+            setTasks(JSON.parse(localStorageTasks))
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('@taks', JSON.stringify(tasks))
+    }, [tasks]);
 
     const handlerRegister = (e) => {
         e.preventDefault()
